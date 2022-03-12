@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tugas 2</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      body {
+        width: 80%;
+        margin: 0 auto;
+      }
+      .hero,
+      header {
+        text-align: center;
+      }
+      header {
+        margin: 20px 0;
+        position: relative;
+      }
+      .character-set {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+      }
+      .char {
+        width: 200px;
+      }
+      .character-set img {
+        width: 180px;
+        height: 150px;
+        object-fit: contain;
+        margin: 20px 0 10px;
+      }
+      .btn {
+        border: none;
+        cursor: pointer;
+        padding: 15px 40px;
+        border-radius: 5px;
+      }
+      .btn-char {
+        background-color: #5dca88;
+        color: #fff;
+        box-shadow: 0px 7px #1a7940;
+        opacity: 0.8;
+      }
+      .btn-char:hover {
+        opacity: 1;
+      }
+      .btn-char:active {
+        box-shadow: none;
+        position: relative;
+        top: 7px;
+      }
+      .formulir {
+        margin: 20px 0;
+      }
+      .input {
+        margin-bottom: 20px;
+      }
+      #alasan,
+      .result-par {
+        padding: 1rem;
+        width: 100%;
+        outline: 1px solid #333;
+        margin: 10px 0;
+        font-size: 1rem;
+        border-radius: 5px;
+      }
+      .result-par {
+        outline: 1px dotted #333;
+      }
+      #alasan {
+        background-color: rgb(219, 204, 204);
+      }
+
+      #alasan:focus {
+        border: 2px solid #000;
+      }
+      .btn-submit {
+        background-color: rgb(36, 148, 212);
+        color: #fff;
+      }
+      .btn-submit:hover {
+        background-color: rgb(9, 72, 109);
+      }
+      .btn-submit:active {
+        background-color: rgb(36, 148, 212);
+      }
+      .question::before,
+      .question::after {
+        content: "";
+        width: 70px;
+        height: 4px;
+        background-color: black;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .question::before {
+        left: 20%;
+      }
+      .question::after {
+        right: 20%;
+      }
+      .active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="question">Pemilihan Karakter Terbaik</h1>
+    </header>
+    <main>
+      <div class="hero">
+        <p>Siapa karakter Progate favorit Anda?</p>
+        <div class="character-set">
+          <div class="char">
+            <img src="./img/baby_ben.png" alt="Baby Ben" />
+
+            <button id="btn-baby" class="btn btn-char">Baby Ben</button>
+          </div>
+          <div class="char">
+            <img src="./img/ninja_ken.png" alt="Ninja Ben" />
+            <button id="btn-ninja" class="btn btn-char">Ninja Ken</button>
+          </div>
+          <div class="char">
+            <img src="./img/guru_domba.png" alt="" />
+            <button id="btn-guru" class="btn btn-char">Guru Domba</button>
+          </div>
+        </div>
+      </div>
+      <div class="formulir">
+        <div class="input">
+          <p>Alasan</p>
+          <textarea name="alasan" id="alasan" rows="5" value=""></textarea>
+          <button class="btn btn-submit" onclick="submit()">Kumpulkan</button>
+        </div>
+        <div class="result">
+          <p>Hasil</p>
+          <div class="result-par">
+            <p>Karakter yang disukai <span class="charName"></span></p>
+            <p>Alasan: <span class="display-result"></span></p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script>
+      const tombol = document.querySelectorAll(".btn-char");
+      const container = document.querySelector(".character-set");
+
+      container.addEventListener("click", function (e) {
+        let btn = e.target;
+        if (btn.className == "btn btn-char") {
+          let charName = btn.textContent;
+          let alasan = `Saya suka ${charName} karena ...`;
+          document.getElementById("alasan").value = alasan;
+          document.querySelector(".charName").innerHTML = charName;
+          tombol.forEach((active) => {
+            active.classList.remove("active");
+          });
+          btn.classList.add("active");
+        }
+      });
+
+      // tombol.forEach((btn) => {
+      //   let charName = btn.textContent;
+      //   let alasan = `Saya suka ${charName} karena ...`;
+      //   btn.addEventListener("click", function (e) {
+      //     document.getElementById("alasan").value = alasan;
+      //     document.querySelector(".charName").innerHTML = charName;
+      //   });
+      // });
+
+      const submit = () => {
+        if (document.querySelector(".charName").innerHTML == "") {
+          return alert("Pilih karakter terlebih dahulu!");
+        }
+        const alasanTampil = document.querySelector(".display-result");
+        alasanTampil.innerHTML = document.getElementById("alasan").value;
+        tombol.forEach((active) => {
+          active.classList.remove("active");
+        });
+      };
+    </script>
+  </body>
+</html>
